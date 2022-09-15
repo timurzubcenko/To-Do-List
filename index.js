@@ -23,6 +23,12 @@ if (localStorage.getItem('itemsHTML')) {
     items.innerHTML = localStorage.getItem('itemsHTML')
 }
 
+if (items.children.length > 0) {
+    emptyList.classList.add('hidden')
+} else {
+    emptyList.classList.remove('hidden')
+}
+
 function addTask(event) {
     if (event.keyCode === 13) {
 
@@ -46,9 +52,6 @@ function addTask(event) {
         input.value = ""
     }
 
-    if (items.children.length > 0) {
-        emptyList.classList.add('hidden')
-    }
     saveHTMLToLS()
 }
 
@@ -73,9 +76,6 @@ function addTaskforClick(event) {
     input.value = ""
     input.focus()
 
-    if (items.children.length > 0) {
-        emptyList.classList.add('hidden')
-    }
     saveHTMLToLS()
 }
 
@@ -85,9 +85,6 @@ function deleteTask(event) {
     const perentNode = event.target.closest('.item')
     perentNode.remove()
 
-    if (items.children.length < 1) {
-        emptyList.classList.remove('hidden')
-    }
     saveHTMLToLS()
 }
 
