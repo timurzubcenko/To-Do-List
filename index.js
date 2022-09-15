@@ -23,12 +23,6 @@ if (localStorage.getItem('itemsHTML')) {
     items.innerHTML = localStorage.getItem('itemsHTML')
 }
 
-if (items.children.length > 0) {
-    emptyList.classList.add('hidden')
-} else {
-    emptyList.classList.remove('hidden')
-}
-
 function addTask(event) {
     if (event.keyCode === 13) {
 
@@ -52,22 +46,25 @@ function addTask(event) {
         input.value = ""
     }
 
+    if (items.children.length > 0) {
+        emptyList.classList.add('hidden')
+    }
     saveHTMLToLS()
 }
 
 function addTaskforClick(event) {
     const taskText = `
-            <div class="item">
-                <p>${input.value}</p>
-                <div class="btns">
-                    <div class="btn_done">
-                        <i class="bi bi-check-lg"></i>
-                    </div>
-                    <div class="btn_delete">
-                        <i class="bi bi-x"></i>
+                <div class="item">
+                    <p>${input.value}</p>
+                    <div class="btns">
+                        <div class="btn_done" data-action="done">
+                            <i class="bi bi-check-lg"></i>
+                        </div>
+                        <div class="btn_delete" data-action="delete">
+                            <i class="bi bi-x"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
         `
 
     items.insertAdjacentHTML('beforeend', taskText)
@@ -76,6 +73,9 @@ function addTaskforClick(event) {
     input.value = ""
     input.focus()
 
+    if (items.children.length > 0) {
+        emptyList.classList.add('hidden')
+    }
     saveHTMLToLS()
 }
 
@@ -85,6 +85,9 @@ function deleteTask(event) {
     const perentNode = event.target.closest('.item')
     perentNode.remove()
 
+    if (items.children.length < 1) {
+        emptyList.classList.remove('hidden')
+    }
     saveHTMLToLS()
 }
 
